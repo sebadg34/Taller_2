@@ -3,9 +3,10 @@
 
 #include "pch.h"
 #include <iostream>
-
+#include "GameSystem.h"
 int main()
 {
+	GameSystem sistema; //Se inicializa el sistema.
     std::cout << "Hello World!\n"; 
 }
 

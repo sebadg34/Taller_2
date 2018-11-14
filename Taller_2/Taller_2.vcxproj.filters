@@ -18,6 +18,15 @@
     <ClInclude Include="pch.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoCasilla.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Tablero_Matriz.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -26,5 +35,55 @@
     <ClCompile Include="Taller_2.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="NodoCasilla.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Tablero_Matriz.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo001.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo002.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo003.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo004.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo005.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo006.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo007.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo008.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo009.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo010.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo011.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo012.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campos.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
 </Project>
