@@ -39,6 +39,9 @@
     <ClInclude Include="Nodo_Zapata.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -54,18 +57,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Matriz_Sebadg.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Nodo_Sebadg.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Matriz_Zapata.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Nodo_Zapata.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -109,5 +100,8 @@
     <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campos.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Downloads\tone.mp3" />
   </ItemGroup>
 </Project>

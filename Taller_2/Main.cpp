@@ -4,10 +4,20 @@
 #include "pch.h"
 #include <iostream>
 #include "GameSystem.h"
-int main()
+#include <Windows.h>
+#include <MMSystem.h>
+
+#pragma comment(lib,"Winmm.lib")
+using namespace std;
+int main(int argc, char* argv[])
 {
-	GameSystem sistema; //Se inicializa el sistema.
 	
+
+	
+	Sleep(1000);//Añade un retraso de 1 segundo antes de que la ejecucion continue.
+	GameSystem sistema;
+	
+	return 0;
     std::cout << "Hello World!\n"; 
 }
 
