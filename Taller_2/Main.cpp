@@ -7,6 +7,7 @@
 int main()
 {
 	GameSystem sistema; //Se inicializa el sistema.
+	
     std::cout << "Hello World!\n"; 
 }
 

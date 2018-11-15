@@ -166,7 +166,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Tablero_Matriz.cpp" />
-    <ClCompile Include="Taller_2.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo001.txt" />
