@@ -152,13 +152,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="Matriz_Sebadg.h" />
+    <ClInclude Include="Matriz_Zapata.h" />
     <ClInclude Include="NodoCasilla.h" />
+    <ClInclude Include="Nodo_Sebadg.h" />
+    <ClInclude Include="Nodo_Zapata.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Tablero_Matriz.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Matriz_Sebadg.cpp" />
+    <ClCompile Include="Matriz_Zapata.cpp" />
     <ClCompile Include="NodoCasilla.cpp" />
+    <ClCompile Include="Nodo_Sebadg.cpp" />
+    <ClCompile Include="Nodo_Zapata.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
