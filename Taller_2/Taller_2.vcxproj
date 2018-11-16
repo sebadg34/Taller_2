@@ -153,11 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameSystem.h" />
-    <ClInclude Include="Matriz_Sebadg.h" />
-    <ClInclude Include="Matriz_Zapata.h" />
     <ClInclude Include="NodoCasilla.h" />
-    <ClInclude Include="Nodo_Sebadg.h" />
-    <ClInclude Include="Nodo_Zapata.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Tablero_Matriz.h" />
@@ -188,9 +184,6 @@
     <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo011.txt" />
     <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo012.txt" />
     <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campos.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\..\..\..\Downloads\tone.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

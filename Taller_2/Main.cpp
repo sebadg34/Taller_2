@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	GameSystem sistema;
 	
 	return 0;
-    std::cout << "Hello World!\n"; 
+    
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar

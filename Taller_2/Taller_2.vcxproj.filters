@@ -27,18 +27,6 @@
     <ClInclude Include="Tablero_Matriz.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Matriz_Sebadg.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Nodo_Sebadg.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Matriz_Zapata.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Nodo_Zapata.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -100,8 +88,5 @@
     <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campos.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\..\..\..\Downloads\tone.mp3" />
   </ItemGroup>
 </Project>
