@@ -1,4 +1,5 @@
-﻿#include "pch.h"
+﻿
+#include "pch.h"
 
 #include "GameSystem.h"
 #include <iostream>
@@ -8,6 +9,7 @@
 #include <algorithm>
 #include <windows.h>
 #include <mmsystem.h>
+#include <math.h>
 
 
 
@@ -15,6 +17,7 @@ using namespace std;
 
 GameSystem::GameSystem()
 {
+	 
 	MenuPrincipal();
 }
 
@@ -45,16 +48,16 @@ void GameSystem::MenuPrincipal()
 
 
 
-	cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 "<< endl;
-	cout << " F1 [1][X][1][0][0][0][1][X][2]" << endl;
-	cout << " F2 [2][2][1][0][0][1][3][4][X]" << endl;
-	cout << " F3 [X][1][0][0][0][1][X][X][2]" << endl;
-	cout << " F4 [2][2][0][0][0][1][2][2][1]" << endl;
-	cout << " F5 [X][2][1][0][0][0][0][0][0]" << endl;
-	cout << " F6 [2][X][1][0][0][0][0][0][0]" << endl;
-	cout << " F7 [1][1][1][1][1][2][1][1][0]" << endl;
-	cout << " F8 [0][0][0][1][X][2][X][1][0]" << endl;
-	cout << " F9 [0][0][0][1][1][2][1][1][0]" << endl;
+	//cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 "<< endl;
+	//cout << " F1 [1][X][1][0][0][0][1][X][2]" << endl;
+	//cout << " F2 [2][2][1][0][0][1][3][4][X]" << endl;
+	//cout << " F3 [X][1][0][0][0][1][X][X][2]" << endl;
+	//cout << " F4 [2][2][0][0][0][1][2][2][1]" << endl;
+	//cout << " F5 [X][2][1][0][0][0][0][0][0]" << endl;
+	//cout << " F6 [2][X][1][0][0][0][0][0][0]" << endl;
+	//cout << " F7 [1][1][1][1][1][2][1][1][0]" << endl;
+	//cout << " F8 [0][0][0][1][X][2][X][1][0]" << endl;
+	//cout << " F9 [0][0][0][1][1][2][1][1][0]" << endl;
 		
 
 
@@ -87,10 +90,14 @@ void GameSystem::MenuPrincipal()
 
 	PlaySound(TEXT("intro.wav"), NULL, SND_SYNC);
 
+
+	//Arreglos para almacenar ids de los tableros respectivos
+	
+
 	bool menu = true;
 	string opcion; //Auxiliar para menu
 	string pause;
-
+	
 	while (menu) {
 		cout << "*************************************************************************************" << endl;
 		cout << "Selecione una opcion" << endl;
@@ -169,21 +176,25 @@ void GameSystem::MenuPartida()
 			continue;
 		}
 		int opcionVerificada = std::stoi(opcion);
-
+		
 		switch (opcionVerificada) {
-
+		
 		case 1:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			Partida(1);
 			break;
 		case 2:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			Partida(2);
 			break;
 		case 3:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			Partida(3);
 			break;
+
 		case 4://Vuelvo al menu Principal
 			PlaySound(TEXT("return.wav"), NULL, SND_ASYNC);
 			system("CLS");//Limpiar consola
@@ -196,6 +207,9 @@ void GameSystem::MenuPartida()
 		
 	}
 
+
+	
+
 }
 
 void GameSystem::MenuEstadisticas()
@@ -203,3 +217,25 @@ void GameSystem::MenuEstadisticas()
 	system("CLS");//Limpiar consola
 
 }
+
+void GameSystem::Partida(int dificultad)
+
+{
+	if (dificultad == 1) {
+		
+
+	}
+	else if (dificultad == 2) {
+
+
+	}
+	else if (dificultad == 3) {
+		
+
+	}
+}
+
+
+
+
+

@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+#include "pch.h"
+
 class GameSystem
 {
 public:
@@ -11,11 +14,10 @@ public:
 	void MenuPrincipal(); //Menu principal del juego.
 	void MenuPartida(); //Menu de seleccion de dificultad.
 	void MenuEstadisticas();//Menu de estadisticas del juego.
+	void Partida(int dificultad); //Funcion que inicia la partida dependiendo de la dificultad
+	void LecturaDificultades(); //Funcion que lee archivo de tableros con sus dificultades e Ids.
 
-	void Partida(); //Funcion que inicia la partida dependiendo de la dificultad
-	void LecturaArchivo();
-
-
+	
 
 
 private: 
