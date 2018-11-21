@@ -11,7 +11,7 @@ Tablero_Matriz::Tablero_Matriz(int filas, int columnas)
 	//se crean las listas fila y columna
 	this->Columnas = new NodoCasilla[columnas + 1];
 	this->Filas = new NodoCasilla[filas + 1];
-
+	
 	//------------------------------------------------------
 	//Ciclos para llenar las filas y columnas de nodos Base|
 	//------------------------------------------------------
