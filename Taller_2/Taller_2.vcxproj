@@ -170,21 +170,6 @@
     <ClCompile Include="Tablero_Matriz.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo001.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo002.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo003.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo004.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo005.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo006.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo007.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo008.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo009.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo010.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo011.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campo012.txt" />
-    <Text Include="..\..\..\..\Documents\Archivos de Ejemplo - Taller 2\Campos.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

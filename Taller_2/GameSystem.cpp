@@ -10,14 +10,25 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <math.h>
+#include "Tablero_Matriz.h"
 
 
 
 using namespace std;
 
+
+
 GameSystem::GameSystem()
 {
-	 
+	Facil = new string[10];
+	Medio = new string[10];
+	Dificil = new string[10];
+	
+	static int contFacil = 0;
+	static int contMedio = 0;
+	static int contDificil = 0;
+
+	LecturaDificultades();
 	MenuPrincipal();
 }
 
@@ -221,20 +232,76 @@ void GameSystem::MenuEstadisticas()
 void GameSystem::Partida(int dificultad)
 
 {
+
+	//Dependiendo de la dificultad, se genera un numero random para seleccionar un campo de forma aleatoria entre las dificultades.
+	//1 = facil, 2 = medio, 3 = dificil.
 	if (dificultad == 1) {
-		
+		int opcion = rand() % contFacil;
+		string campo = Facil[opcion];
+		cout << "Cargando el campo " << campo << endl;
+		Tablero_Matriz tablero = Tablero_Matriz(9, 9);
+
 
 	}
 	else if (dificultad == 2) {
+		int opcion = rand() % contMedio;
+		string campo = Medio[opcion];
+		cout << "Cargando el campo " << campo << endl;
+		Tablero_Matriz tablero = Tablero_Matriz(16, 16);
 
 
 	}
 	else if (dificultad == 3) {
-		
+		int opcion = rand() % contDificil;
+		string campo = Dificil[opcion];
+		cout << "Cargando el campo " << campo << endl;
+		Tablero_Matriz tablero = Tablero_Matriz(30, 16);
+
 
 	}
 }
 
+void GameSystem::LecturaDificultades()
+{
+	std::ifstream archivoCampos;
+	archivoCampos.open("Campos.txt", ifstream::in);
+	string id;
+	string dificultad;
+	string linea;
+
+	if (archivoCampos.is_open()) {
+
+		cout << "***************************************************" << endl;
+		while (getline(archivoCampos, linea)) {
+			//crear cliente
+
+
+			stringstream ss(linea);
+			getline(ss, id, ',');
+			getline(ss, dificultad, ',');
+			
+			if (dificultad == "facil") {
+				Facil[contFacil] = id;
+				contFacil++;
+			}
+			else if (dificultad == "medio") {
+				Medio[contMedio] = id;
+				contMedio++;
+			}
+			else if (dificultad == "dificil") {
+				Dificil[contDificil] = id;
+				contDificil++;
+			}
+
+
+			cout << id << "," << dificultad << endl;
+
+			cout << "***************************************************" << endl;
+
+		}
+
+	}
+}
 
 
 

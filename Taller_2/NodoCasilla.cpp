@@ -18,9 +18,6 @@ NodoCasilla::NodoCasilla(int fila, int columna, string valor)
 
 }
 
-
-
-
 NodoCasilla::~NodoCasilla()
 {
 }
