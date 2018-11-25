@@ -28,6 +28,7 @@ GameSystem::GameSystem()
 	static int contMedio = 0;
 	static int contDificil = 0;
 
+	static int dif = 0;//Variable auxiliar que determina la dificultad del juego en curso.
 	LecturaDificultades();
 	MenuPrincipal();
 }
@@ -193,16 +194,19 @@ void GameSystem::MenuPartida()
 		case 1:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			dif = 1;
 			SelectorPartida(1);
 			break;
 		case 2:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			dif = 2;
 			SelectorPartida(2);
 			break;
 		case 3:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			dif = 3;
 			SelectorPartida(3);
 			break;
 
@@ -262,7 +266,7 @@ void GameSystem::LecturaDificultades()
 			}
 
 
-			cout << id << "," << dificultad << endl;
+			//cout << id << "," << dificultad << endl; //funcion de prueba (BORRAR)
 
 			cout << "***************************************************" << endl;
 
@@ -271,8 +275,23 @@ void GameSystem::LecturaDificultades()
 	}
 }
 
-void GameSystem::DesplegarTablero(Tablero_Matriz tablero)
+void GameSystem::DesplegarTablero(Tablero_Matriz tablero,Tablero_Matriz tablero2)
 {
+
+	string linea = "";
+	if (dif = 1) {
+		cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 "<< endl;
+	}
+	else if (dif = 2) {
+		cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 "<< endl;
+	}
+	else if (dif = 3) {
+		cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 "<< endl;
+	}
+
+
+
+
 }
 
 void GameSystem::SelectorPartida(int dificultad)
@@ -285,6 +304,7 @@ void GameSystem::SelectorPartida(int dificultad)
 	**/
 	if (dificultad == 1) {
 
+		
 		int opcion = rand() % contFacil;
 		string campo = Facil[opcion];
 		cout << "Cargando el campo " << campo << endl;
@@ -361,7 +381,10 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 	//Ciclo que determina la partida en si, al terminar el ciclo se declara si gana o pierde la partida.
 	while (partida == true) {
-		DesplegarTablero(tablero);
+
+
+		DesplegarTablero(tablero,tablero2);
+		//variables auxiliares para los valores que ingresa el usuario
 		string tipo;
 		string fila;
 		string columna;
@@ -369,9 +392,14 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 		cout << "[B] Colocar Bandera" << endl;
 		cout << "[?] Marcar como sospechoso" << endl;
 		cout << "[A] Destapar celda" << endl;
-
+		cout << "digite 'salir' para terminar la partida" << endl;
 		getline(cin, tipo);
+
 		
+		tipo[0] = toupper(tipo[0]);
+		
+
+
 		if (tipo == "B" || tipo == "?" || tipo == "A") {
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 			cout << "indique la fila a buscar" << endl;
@@ -423,6 +451,13 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 				continue;
 			}
 
+		}
+		//condicion de termino en caso de que el jugador no quiera seguir con la partida.
+		if (tipo == "Salir") {
+			PlaySound(TEXT("return.wav"), NULL, SND_ASYNC);
+			system("CLS");//Limpiar consola
+			partida == false;
+			return;
 		}
 		else {
 			system("CLS");//Limpiar consola

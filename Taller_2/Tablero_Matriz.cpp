@@ -42,7 +42,7 @@ void Tablero_Matriz::AgregarNodo(NodoCasilla*Nodo, int posX, int posY)
 {
 	NodoCasilla*Aux = &Columnas[0];
 	
-
+	
 
 
 }

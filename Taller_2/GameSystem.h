@@ -24,7 +24,7 @@ public:
 
 	void LecturaDificultades(); //Funcion que lee archivo de tableros con sus dificultades e Ids, se ejecuta al iniciar el programa.
 	
-	void DesplegarTablero(Tablero_Matriz tablero);
+	void DesplegarTablero(Tablero_Matriz tablero, Tablero_Matriz tablero2);
 
 private: 
 
@@ -36,7 +36,7 @@ private:
 	int contMedio;
 	int contDificil;
 
-
+	int dif;//Variable auxiliar que determina la dificultad del juego en curso.
 
 
 
