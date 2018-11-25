@@ -19,6 +19,8 @@ public:
 	void SetLeft(NodoCasilla*Left);
 	void SetUp(NodoCasilla*Up);
 
+	int GetFila();
+	int GetColumna();
 private:
 	
 	NodoCasilla *Left;

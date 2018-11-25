@@ -15,7 +15,8 @@ NodoCasilla::NodoCasilla(int fila, int columna, string valor)
 	this->Columna = columna;
 	this->valor = valor;
 
-
+	this->Left = nullptr;
+	this->Up = nullptr;
 }
 
 NodoCasilla::~NodoCasilla()
@@ -40,4 +41,14 @@ void NodoCasilla::SetLeft(NodoCasilla*Left)
 void NodoCasilla::SetUp(NodoCasilla*Up)
 {
 	this->Up = Up;
+}
+
+int NodoCasilla::GetFila()
+{
+	return this->Fila;
+}
+
+int NodoCasilla::GetColumna()
+{
+	return this->Columna;
 }

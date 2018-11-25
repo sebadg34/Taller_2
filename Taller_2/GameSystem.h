@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "pch.h"
+#include "Tablero_Matriz.h"
 using namespace std;
 class GameSystem
 {
@@ -17,10 +18,13 @@ public:
 	void MenuPrincipal(); //Menu principal del juego.
 	void MenuPartida(); //Menu de seleccion de dificultad.
 	void MenuEstadisticas();//Menu de estadisticas del juego.
-	void Partida(int dificultad); //Funcion que inicia la partida dependiendo de la dificultad
+
+	void Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string IdArchivo);
+	void SelectorPartida(int dificultad); //Funcion que inicia la partida dependiendo de la dificultad
+
 	void LecturaDificultades(); //Funcion que lee archivo de tableros con sus dificultades e Ids, se ejecuta al iniciar el programa.
 	
-	
+	void DesplegarTablero(Tablero_Matriz tablero);
 
 private: 
 

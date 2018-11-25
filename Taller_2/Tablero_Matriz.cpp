@@ -18,14 +18,14 @@ Tablero_Matriz::Tablero_Matriz(int filas, int columnas)
 
 	//Ciclo para Filas
 	for (int i = 1; i < filas; i++) {
-		NodoCasilla Nodo =  NodoCasilla(i, 0, 0);
+		NodoCasilla Nodo =  NodoCasilla(i, 0, "");
 		Nodo.SetLeft(&Nodo);
 		Filas[i] = Nodo;
 	}
 
 	//Ciclo para Columnas
 	for (int i = 1; i < columnas; i++) {
-		NodoCasilla Nodo = NodoCasilla(0, i, 0);
+		NodoCasilla Nodo = NodoCasilla(0, i, "");
 		Nodo.SetUp(&Nodo);
 		Columnas[i] = Nodo;
 	}
@@ -36,4 +36,13 @@ Tablero_Matriz::Tablero_Matriz(int filas, int columnas)
 
 Tablero_Matriz::~Tablero_Matriz()
 {
+}
+
+void Tablero_Matriz::AgregarNodo(NodoCasilla*Nodo, int posX, int posY)
+{
+	NodoCasilla*Aux = &Columnas[0];
+	
+
+
+
 }

@@ -193,17 +193,17 @@ void GameSystem::MenuPartida()
 		case 1:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
-			Partida(1);
+			SelectorPartida(1);
 			break;
 		case 2:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
-			Partida(2);
+			SelectorPartida(2);
 			break;
 		case 3:
 			system("CLS");//Limpiar consola
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
-			Partida(3);
+			SelectorPartida(3);
 			break;
 
 		case 4://Vuelvo al menu Principal
@@ -229,38 +229,6 @@ void GameSystem::MenuEstadisticas()
 
 }
 
-void GameSystem::Partida(int dificultad)
-
-{
-
-	//Dependiendo de la dificultad, se genera un numero random para seleccionar un campo de forma aleatoria entre las dificultades.
-	//1 = facil, 2 = medio, 3 = dificil.
-	if (dificultad == 1) {
-		int opcion = rand() % contFacil;
-		string campo = Facil[opcion];
-		cout << "Cargando el campo " << campo << endl;
-		Tablero_Matriz tablero = Tablero_Matriz(9, 9);
-
-
-	}
-	else if (dificultad == 2) {
-		int opcion = rand() % contMedio;
-		string campo = Medio[opcion];
-		cout << "Cargando el campo " << campo << endl;
-		Tablero_Matriz tablero = Tablero_Matriz(16, 16);
-
-
-	}
-	else if (dificultad == 3) {
-		int opcion = rand() % contDificil;
-		string campo = Dificil[opcion];
-		cout << "Cargando el campo " << campo << endl;
-		Tablero_Matriz tablero = Tablero_Matriz(30, 16);
-
-
-	}
-}
-
 void GameSystem::LecturaDificultades()
 {
 	std::ifstream archivoCampos;
@@ -279,7 +247,7 @@ void GameSystem::LecturaDificultades()
 			stringstream ss(linea);
 			getline(ss, id, ',');
 			getline(ss, dificultad, ',');
-			
+
 			if (dificultad == "facil") {
 				Facil[contFacil] = id;
 				contFacil++;
@@ -303,6 +271,167 @@ void GameSystem::LecturaDificultades()
 	}
 }
 
+void GameSystem::DesplegarTablero(Tablero_Matriz tablero)
+{
+}
+
+void GameSystem::SelectorPartida(int dificultad)
+
+{
+	
+	/**
+	Dependiendo de la dificultad, se genera un numero random para seleccionar un campo de forma aleatoria entre las dificultades.
+	1 = facil, 2 = medio, 3 = dificil.
+	**/
+	if (dificultad == 1) {
+
+		int opcion = rand() % contFacil;
+		string campo = Facil[opcion];
+		cout << "Cargando el campo " << campo << endl;
+
+		//Se crea la matriz poco poblada de 9x9
+		Tablero_Matriz tablero = Tablero_Matriz(9, 9);
+		Tablero_Matriz tableroGuia = Tablero_Matriz(9, 9);
+		Partida(tablero, tableroGuia, campo);
+	}
+	else if (dificultad == 2) {
+
+		int opcion = rand() % contMedio;
+		string campo = Medio[opcion];
+		cout << "Cargando el campo " << campo << endl;
+
+		//Se crea la matriz poco poblada de 16x16
+		Tablero_Matriz tablero = Tablero_Matriz(16, 16);
+		Tablero_Matriz tableroGuia = Tablero_Matriz(9, 9);
+		Partida(tablero, tableroGuia, campo);
+	}
+	else if (dificultad == 3) {
+		
+		int opcion = rand() % contDificil;
+		string campo = Dificil[opcion];
+		cout << "Cargando el campo " << campo << endl;
+
+		//Se crea la matriz poco poblada de 30x16
+		Tablero_Matriz tablero = Tablero_Matriz(30, 16);
+		Tablero_Matriz tableroGuia = Tablero_Matriz(9, 9);
+		Partida(tablero, tableroGuia, campo);
+	}
+}
 
 
+
+void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string IdArchivo)
+{
+	cout << "****______****************" << endl;
+	cout << "PARTIDA INICIADA" << endl;
+	cout << "****______****************" << endl;
+	bool partida = true;
+	std::ifstream campo;
+	string linea;
+	string casilla;
+	campo.open(IdArchivo, ifstream::in);
+
+	int posX = 0;
+	int posY = 0;
+
+
+	//Ciclo para llenar matriz de acuerdo al campo que carga la partida.
+	while (getline(campo, linea)) { //Avanzar por fila
+		stringstream ss(linea);
+		while (!ss.eof()) {//Avanzar por columna o commas (,).
+			
+			getline(ss, casilla, ',');
+			
+			//la primera matriz obtiene las bombas
+			if (casilla == "X") {
+				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, "X");
+				tablero.AgregarNodo(nuevoNodo, posX, posY);
+				
+			}
+			//la segunda matriz, la cual es el complemento de la primera, almacena los numeros.
+			else if (casilla != "0" && casilla != "X") {
+				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
+				tablero2.AgregarNodo(nuevoNodo, posX, posY);
+			}
+			posY++;
+		}
+		posX++;
+	}
+	
+
+	//Ciclo que determina la partida en si, al terminar el ciclo se declara si gana o pierde la partida.
+	while (partida == true) {
+		DesplegarTablero(tablero);
+		string tipo;
+		string fila;
+		string columna;
+		cout << "Ingrese una opcion para la casilla (B = bandera, ? = sospechoso, A = destapado)" << endl;
+		cout << "[B] Colocar Bandera" << endl;
+		cout << "[?] Marcar como sospechoso" << endl;
+		cout << "[A] Destapar celda" << endl;
+
+		getline(cin, tipo);
+		
+		if (tipo == "B" || tipo == "?" || tipo == "A") {
+			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+			cout << "indique la fila a buscar" << endl;
+			getline(cin, fila);
+			try { //Validar respuesta del menu
+				std::stoi(fila);
+				PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+				cout << "indique la columna a buscar" << endl;
+				getline(cin, columna);
+				try {
+					std::stoi(columna);
+					PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
+				
+					//algoritmo para realizar la accion solicitada
+					
+					if ((std::stoi(columna) < 0 || std::stoi(fila) < 0)) {
+						cout << "Columna/fila invalida, debe ser de valores positivos y dentro del rango del tablero" << endl;
+					}
+					//Realiza accion.
+					else {
+					
+					
+					}
+
+
+
+
+
+
+
+
+
+
+
+				}
+				catch (const std::exception) {
+					system("CLS");//Limpiar consola
+					PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
+					cout << "ERROR, columna invalida." << endl;
+					cout << "*************************************************************************************" << endl;
+				}
+			}
+			catch (const std::exception) {
+				system("CLS");//Limpiar consola
+				PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
+				cout << "ERROR, fila invalida." << endl;
+				cout << "*************************************************************************************" << endl;
+
+				continue;
+			}
+
+		}
+		else {
+			system("CLS");//Limpiar consola
+			PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
+			cout << "ERROR, ingrese un movimiento valido" << endl;
+			cout << "***************************************" << endl;
+		}
+
+		
+	}
+}
 
