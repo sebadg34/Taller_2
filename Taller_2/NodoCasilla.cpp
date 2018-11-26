@@ -52,3 +52,8 @@ int NodoCasilla::GetColumna()
 {
 	return this->Columna;
 }
+
+string NodoCasilla::getValor()
+{
+	return this->valor;
+}

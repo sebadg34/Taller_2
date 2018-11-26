@@ -21,6 +21,7 @@ public:
 
 	int GetFila();
 	int GetColumna();
+	string getValor();
 private:
 	
 	NodoCasilla *Left;

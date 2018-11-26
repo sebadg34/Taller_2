@@ -38,11 +38,12 @@ Tablero_Matriz::~Tablero_Matriz()
 {
 }
 
-void Tablero_Matriz::AgregarNodo(NodoCasilla*Nodo, int posX, int posY)
+void Tablero_Matriz::AgregarNodo(NodoCasilla* Nodo, int posX, int posY)
 {
-	NodoCasilla*Aux = &Columnas[0];
-	
-	
 
+}
 
+NodoCasilla* Tablero_Matriz::BuscarNodo(int x, int y)
+{
+	return nullptr;
 }

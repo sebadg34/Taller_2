@@ -11,7 +11,7 @@ public:
 	~Tablero_Matriz();
 
 	void AgregarNodo(NodoCasilla*Nodo,int posX,int posY);
-	
+	NodoCasilla* BuscarNodo(int x, int y);
 
 	NodoCasilla*Filas;
 	NodoCasilla*Columnas;

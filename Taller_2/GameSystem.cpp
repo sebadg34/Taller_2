@@ -1,6 +1,5 @@
 ﻿
 #include "pch.h"
-
 #include "GameSystem.h"
 #include <iostream>
 #include <fstream>
@@ -243,7 +242,7 @@ void GameSystem::LecturaDificultades()
 
 	if (archivoCampos.is_open()) {
 
-		cout << "***************************************************" << endl;
+		
 		while (getline(archivoCampos, linea)) {
 			//crear cliente
 
@@ -268,7 +267,7 @@ void GameSystem::LecturaDificultades()
 
 			//cout << id << "," << dificultad << endl; //funcion de prueba (BORRAR)
 
-			cout << "***************************************************" << endl;
+			
 
 		}
 
@@ -277,21 +276,52 @@ void GameSystem::LecturaDificultades()
 
 void GameSystem::DesplegarTablero(Tablero_Matriz tablero,Tablero_Matriz tablero2)
 {
-
+	int columnas = 0;
+	int filas = 0;
 	string linea = "";
-	if (dif = 1) {
-		cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 "<< endl;
+	if (dif == 1) {
+		columnas = 9;
+		filas = 9;
+		linea = "    C01 C02 C03 C04 C05 C06 C07 C08 C09";
 	}
-	else if (dif = 2) {
-		cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 "<< endl;
+	else if (dif == 2) {
+		columnas = 16;
+		filas = 16;
+		linea = "    C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 C12 C13 C14 C15 C16";
 	}
-	else if (dif = 3) {
-		cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 C10 C11 C12 C13 C14 C15 C16 "<< endl;
+	else if (dif == 3) {
+		columnas = 30;
+		filas = 16;
+		linea = "    C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20 C21 C22 C23 C24 C25 C26 C27 C28 C29 C30";
+	}
+	cout <<linea<< endl;
+
+	for (int y = 1; y < filas + 1; y++) {
+
+		//condicion para que las filas sean de doble digito y permita una impresion ordenada en consola
+		if (y <= 9) {
+			cout << "F0" + to_string(y) << " ";
+		}
+		else {
+			cout << "F" + to_string(y) << " ";
+		}
+		
+		for (int x = 1; x < columnas + 1; x++) {
+
+			NodoCasilla* nodoBuscado = tablero2.BuscarNodo(x, y);
+
+			if (nodoBuscado == NULL) { 
+				cout << " H  "; 
+			}
+			else { 
+				cout << nodoBuscado->getValor() <<"   "; 
+			}
+		}
+		cout << endl;
 	}
 
 
-
-
+	cout << "\n" << endl;
 }
 
 void GameSystem::SelectorPartida(int dificultad)
@@ -322,7 +352,7 @@ void GameSystem::SelectorPartida(int dificultad)
 
 		//Se crea la matriz poco poblada de 16x16
 		Tablero_Matriz tablero = Tablero_Matriz(16, 16);
-		Tablero_Matriz tableroGuia = Tablero_Matriz(9, 9);
+		Tablero_Matriz tableroGuia = Tablero_Matriz(16, 16);
 		Partida(tablero, tableroGuia, campo);
 	}
 	else if (dificultad == 3) {
@@ -333,7 +363,7 @@ void GameSystem::SelectorPartida(int dificultad)
 
 		//Se crea la matriz poco poblada de 30x16
 		Tablero_Matriz tablero = Tablero_Matriz(30, 16);
-		Tablero_Matriz tableroGuia = Tablero_Matriz(9, 9);
+		Tablero_Matriz tableroGuia = Tablero_Matriz(30, 16);
 		Partida(tablero, tableroGuia, campo);
 	}
 }
@@ -363,19 +393,16 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 			getline(ss, casilla, ',');
 			
 			//la primera matriz obtiene las bombas
-			if (casilla == "X") {
-				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, "X");
+			if (casilla != "0") {
+				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
 				tablero.AgregarNodo(nuevoNodo, posX, posY);
 				
 			}
-			//la segunda matriz, la cual es el complemento de la primera, almacena los numeros.
-			else if (casilla != "0" && casilla != "X") {
-				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
-				tablero2.AgregarNodo(nuevoNodo, posX, posY);
-			}
-			posY++;
+		
+			
+			posX++;
 		}
-		posX++;
+		posY++;
 	}
 	
 
@@ -419,18 +446,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 						cout << "Columna/fila invalida, debe ser de valores positivos y dentro del rango del tablero" << endl;
 					}
 					//Realiza accion.
-					else {
 					
-					
-					}
-
-
-
-
-
-
-
-
 
 
 
@@ -440,6 +456,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 					PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
 					cout << "ERROR, columna invalida." << endl;
 					cout << "*************************************************************************************" << endl;
+					continue;
 				}
 			}
 			catch (const std::exception) {
@@ -456,7 +473,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 		if (tipo == "Salir") {
 			PlaySound(TEXT("return.wav"), NULL, SND_ASYNC);
 			system("CLS");//Limpiar consola
-			partida == false;
+			partida = false;
 			return;
 		}
 		else {
