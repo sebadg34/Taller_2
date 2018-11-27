@@ -22,6 +22,8 @@ public:
 	int GetFila();
 	int GetColumna();
 	string getValor();
+	bool getEstado();
+
 private:
 	
 	NodoCasilla *Left;
@@ -29,5 +31,6 @@ private:
 	int Fila;
 	int Columna;
 	string valor;
+	bool revelado;
 };
 

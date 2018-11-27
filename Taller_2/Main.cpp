@@ -6,8 +6,8 @@
 #include "GameSystem.h"
 #include <Windows.h>
 #include <MMSystem.h>
-#include <stdio.h>
-#include <fmod.hpp>
+
+
 
 
 #pragma comment(lib,"Winmm.lib")

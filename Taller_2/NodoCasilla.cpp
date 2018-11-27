@@ -17,6 +17,7 @@ NodoCasilla::NodoCasilla(int fila, int columna, string valor)
 
 	this->Left = nullptr;
 	this->Up = nullptr;
+	this ->revelado = false;
 }
 
 NodoCasilla::~NodoCasilla()
@@ -56,4 +57,9 @@ int NodoCasilla::GetColumna()
 string NodoCasilla::getValor()
 {
 	return this->valor;
+}
+
+bool NodoCasilla::getEstado()
+{
+	return this->revelado;
 }

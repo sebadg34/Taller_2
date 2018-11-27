@@ -314,7 +314,10 @@ void GameSystem::DesplegarTablero(Tablero_Matriz tablero,Tablero_Matriz tablero2
 				cout << " H  "; 
 			}
 			else { 
-				cout << nodoBuscado->getValor() <<"   "; 
+				if (nodoBuscado->getEstado() == true) { // si el nodo ya fue revelado, se desplega su valor por consola.
+					cout << nodoBuscado->getValor() << "   ";
+				}
+				
 			}
 		}
 		cout << endl;
