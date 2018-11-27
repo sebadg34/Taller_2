@@ -44,6 +44,11 @@ void NodoCasilla::SetUp(NodoCasilla*Up)
 	this->Up = Up;
 }
 
+void NodoCasilla::SetEstado(bool booleano)
+{
+	this->revelado = booleano;
+}
+
 int NodoCasilla::GetFila()
 {
 	return this->Fila;

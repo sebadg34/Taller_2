@@ -18,7 +18,7 @@ public:
 	NodoCasilla* GetUp();
 	void SetLeft(NodoCasilla*Left);
 	void SetUp(NodoCasilla*Up);
-
+	void SetEstado(bool booleano);
 	int GetFila();
 	int GetColumna();
 	string getValor();
