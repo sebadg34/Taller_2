@@ -243,8 +243,9 @@ void GameSystem::LecturaDificultades()
 	if (archivoCampos.is_open()) {
 
 		
+
 		while (getline(archivoCampos, linea)) {
-			//crear cliente
+			
 
 
 			stringstream ss(linea);
@@ -310,12 +311,12 @@ void GameSystem::DesplegarTablero(Tablero_Matriz tablero,Tablero_Matriz tablero2
 
 			NodoCasilla* nodoBuscado = tablero2.BuscarNodo(x, y);
 
-			if (nodoBuscado == NULL) { 
+			if (nodoBuscado == nullptr) { 
 				cout << " H  "; 
 			}
 			else { 
 				if (nodoBuscado->getEstado() == true) { // si el nodo ya fue revelado, se desplega su valor por consola.
-					cout << nodoBuscado->getValor() << "   ";
+					cout << " "<< nodoBuscado->getValor() << "  ";
 				}
 				
 			}
@@ -372,7 +373,6 @@ void GameSystem::SelectorPartida(int dificultad)
 }
 
 
-
 void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string IdArchivo)
 {
 	cout << "****______****************" << endl;
@@ -389,41 +389,48 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 
 	//Ciclo para llenar matriz de acuerdo al campo que carga la partida.
+	getline(campo, linea);//creo un salto para ignorar los 9x9, 16x16, etc del txt.
 	while (getline(campo, linea)) { //Avanzar por fila
 		stringstream ss(linea);
 		while (!ss.eof()) {//Avanzar por columna o commas (,).
-			
+
 			getline(ss, casilla, ',');
-			
+
 			//la primera matriz obtiene las bombas
 			if (casilla == "X") {
 
-				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
+				NodoCasilla*nuevoNodo = new NodoCasilla(posY, posX, casilla);
 				tablero.AgregarNodo(nuevoNodo, posX, posY);
-				
-			}
-			else if (casilla != "X" && casilla != "0") {
-
-				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
-				tablero2.AgregarNodo(nuevoNodo, posX, posY);
 
 			}
-		
-			
+			else if (casilla != "0") {
+
+				NodoCasilla*nuevoNodo = new NodoCasilla(posY, posX, casilla);
+				tablero.AgregarNodo(nuevoNodo, posX, posY);
+
+			}
+
+			cout << posX << "___" << casilla << endl;
 			posX++;
+
 		}
+
 		posY++;
+		posX = 1;
 	}
-	
+
 
 	//Ciclo que determina la partida en si, al terminar el ciclo se declara si gana o pierde la partida.
 	while (partida == true) {
 
 
-		DesplegarTablero(tablero,tablero2);
+		DesplegarTablero(tablero, tablero2);
 		//variables auxiliares para los valores que ingresa el usuario
 		string tipo;
 		string fila;
+
+		int x;
+		int y;
 		string columna;
 		cout << "Ingrese una opcion para la casilla (B = bandera, ? = sospechoso, A = destapado)" << endl;
 		cout << "[B] Colocar Bandera" << endl;
@@ -432,72 +439,96 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 		cout << "digite 'salir' para terminar la partida" << endl;
 		getline(cin, tipo);
 
-		
+
 		tipo[0] = toupper(tipo[0]);
-		
 
 
+		//se verifica si el usuario ingresa una jugada valida
 		if (tipo == "B" || tipo == "?" || tipo == "A") {
 			PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 			cout << "indique la fila a buscar" << endl;
 			getline(cin, fila);
 			try { //Validar respuesta del menu
-				std::stoi(fila);
+				y = std::stoi(fila);
 				PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 				cout << "indique la columna a buscar" << endl;
 				getline(cin, columna);
 				try {
-					std::stoi(columna);
+					system("CLS");//Limpiar consola
+					x = std::stoi(columna);
+
+					//se setean las variables a estas otras para facilitar sintaxis de los algoritmos.
+
+
+
+					if (x < 0 || y < 0) {
+						cout << "Columna/fila invalida, debe ser de valores positivos y dentro del rango del tablero" << endl;
+						break;
+					}
 					PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
-					
-					
+
+
 					//algoritmo para realizar la accion solicitada
-					
+
 					if (tipo == "B") {
-						NodoCasilla*nodoBandera = new NodoCasilla(std::stoi(columna),std::stoi(fila), "B");
-						tablero2.AgregarNodo(nodoBandera, std::stoi(columna), std::stoi(fila));
-					}
-					
-					if (tipo == "?") {
-						NodoCasilla*nodoBandera = new NodoCasilla(std::stoi(columna), std::stoi(fila), "?");
-						tablero2.AgregarNodo(nodoBandera, std::stoi(columna), std::stoi(fila));
-					}
-					
-					if (tipo == "A") {
-						
-						if (tablero.BuscarNodo(std::stoi(columna), std::stoi(fila)) == nullptr) { //un 0 encontrado.
-							if (tablero2.BuscarNodo(std::stoi(columna), std::stoi(fila)) != nullptr) { //se checkea si el 0 no esta en el tablero2, en caso de enviar denuevo la misma coordenada.
-							//Comienza recursion de 0s
-							}
-						
+						if (tablero2.BuscarNodo(x, y) == nullptr) { //se agrega bandera en caso de que no exista una en su lugar.
+							NodoCasilla*nodoBandera = new NodoCasilla(x, y, "B");
+							nodoBandera->SetEstado(true);
+							tablero2.AgregarNodo(nodoBandera, x, y);
+						}
+						else {//en caso de marcar con bandera en una casilla que ya tenga bandera
+							//se llama funcion eliminar nodo.
+
 						}
 
-						else if (tablero.BuscarNodo(std::stoi(columna), std::stoi(fila))->getValor() == "X" ){ //JUGADOR PIERDE 
+					}
 
+					if (tipo == "?") {
+						if (tablero2.BuscarNodo(x, y) == nullptr) { //se agrega un ? en caso de que no exista una en su lugar.
+							c
+							NodoCasilla*nodoDudoso = new NodoCasilla(x, y, "?");
+							nodoDudoso->SetEstado(true);
+							tablero2.AgregarNodo(nodoDudoso, x, y);
+						}
+						else {//en caso de marcar con un ? en una casilla que ya tenga un ?
+							  //se llama funcion eliminar nodo.
+						}
+					}
 
+					if (tipo == "A") {
+
+						if (tablero.BuscarNodo(x, y) == nullptr) { //un 0 encontrado.
+							if (tablero2.BuscarNodo(x, y) != nullptr) { //se checkea si el 0 no esta en el tablero2, en caso de enviar denuevo la misma coordenada.
+							//Comienza recursion de 0s
+							}
+
+						}
+
+						else if (tablero.BuscarNodo(x, y)->getValor() == "X") { //JUGADOR PIERDE 
+
+							tablero2.AgregarNodo(tablero.BuscarNodo(x, y), x, y);
+							tablero.BuscarNodo(x, y)->SetEstado(true);//Se marca que el nodo fue revelado.
 						}
 						else {
 
 							//Se verifica si el numero encontrado ya fue encontrado anteriormente.
-							if (tablero.BuscarNodo(std::stoi(columna), std::stoi(fila))->getEstado() == false) {
-							
+							if (tablero.BuscarNodo(x, y)->getEstado() == false) {
+
 								//SE ENCUENTRA UN NUMERO
 								//se descubre un numero, y se agrega al 2ndo tablero
 
-								tablero2.AgregarNodo(tablero.BuscarNodo(std::stoi(columna), std::stoi(fila)), std::stoi(columna), std::stoi(fila));
-								tablero.BuscarNodo(std::stoi(columna), std::stoi(fila))->SetEstado(true);//Se marca que el nodo fue revelado.
+								tablero2.AgregarNodo(tablero.BuscarNodo(x, y), x, y);
+								tablero.BuscarNodo(x, y)->SetEstado(true);//Se marca que el nodo fue revelado.
 							}
 
 
 						}
 
 					}
-					
-					if ((std::stoi(columna) < 0 || std::stoi(fila) < 0)) {
-						cout << "Columna/fila invalida, debe ser de valores positivos y dentro del rango del tablero" << endl;
-					}
+
+
 					//Realiza accion.
-					
+
 
 
 
@@ -521,7 +552,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 		}
 		//condicion de termino en caso de que el jugador no quiera seguir con la partida.
-		if (tipo == "Salir") {
+		else if (tipo == "Salir") {
 			PlaySound(TEXT("return.wav"), NULL, SND_ASYNC);
 			system("CLS");//Limpiar consola
 			partida = false;
@@ -534,7 +565,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 			cout << "***************************************" << endl;
 		}
 
-		
+
 	}
 }
 
