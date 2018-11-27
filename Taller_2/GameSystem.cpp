@@ -366,8 +366,8 @@ void GameSystem::SelectorPartida(int dificultad)
 		cout << "Cargando el campo " << campo << endl;
 
 		//Se crea la matriz poco poblada de 30x16
-		Tablero_Matriz tablero = Tablero_Matriz(30, 16);
-		Tablero_Matriz tableroGuia = Tablero_Matriz(30, 16);
+		Tablero_Matriz tablero = Tablero_Matriz(16, 30);
+		Tablero_Matriz tableroGuia = Tablero_Matriz(16, 30);
 		Partida(tablero, tableroGuia, campo);
 	}
 }
