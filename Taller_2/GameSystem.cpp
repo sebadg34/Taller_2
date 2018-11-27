@@ -485,7 +485,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 					if (tipo == "?") {
 						if (tablero2.BuscarNodo(x, y) == nullptr) { //se agrega un ? en caso de que no exista una en su lugar.
-							c
+							
 							NodoCasilla*nodoDudoso = new NodoCasilla(x, y, "?");
 							nodoDudoso->SetEstado(true);
 							tablero2.AgregarNodo(nodoDudoso, x, y);
