@@ -48,28 +48,6 @@ void GameSystem::MenuPrincipal()
 	Sleep(1000);//Añade un retraso de 1 segundo antes de que la ejecucion continue.
 
 
-	//Logo Alternativo
-	//cout << "██████╗ ██╗   ██╗███████╗ ██████╗ █████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ███████╗" << endl;
-	//cout << "██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗██╔════╝" << endl;
-	//cout << "██████╔╝██║   ██║███████╗██║     ███████║██╔████╔██║██║██╔██╗ ██║███████║███████╗" << endl;
-	//cout << "██╔══██╗██║   ██║╚════██║██║     ██╔══██║██║╚██╔╝██║██║██║╚██╗██║██╔══██║╚════██║" << endl;
-	//cout << "██████╔╝╚██████╔╝███████║╚██████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║███████║" << endl;
-	//cout << "╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝" << endl;
-	
-
-
-
-	//cout <<	"    C1 C2 C3 C4 C5 C6 C7 C8 C9 "<< endl;
-	//cout << " F1 [1][X][1][0][0][0][1][X][2]" << endl;
-	//cout << " F2 [2][2][1][0][0][1][3][4][X]" << endl;
-	//cout << " F3 [X][1][0][0][0][1][X][X][2]" << endl;
-	//cout << " F4 [2][2][0][0][0][1][2][2][1]" << endl;
-	//cout << " F5 [X][2][1][0][0][0][0][0][0]" << endl;
-	//cout << " F6 [2][X][1][0][0][0][0][0][0]" << endl;
-	//cout << " F7 [1][1][1][1][1][2][1][1][0]" << endl;
-	//cout << " F8 [0][0][0][1][X][2][X][1][0]" << endl;
-	//cout << " F9 [0][0][0][1][1][2][1][1][0]" << endl;
-		
 
 
 
@@ -297,17 +275,17 @@ void GameSystem::DesplegarTablero(Tablero_Matriz tablero,Tablero_Matriz tablero2
 	}
 	cout <<linea<< endl;
 
-	for (int y = 1; y < filas + 1; y++) {
+	for (int x = 1; x < filas + 1; x++) {
 
 		//condicion para que las filas sean de doble digito y permita una impresion ordenada en consola
-		if (y <= 9) {
-			cout << "F0" + to_string(y) << " ";
+		if (x <= 9) {
+			cout << "F0" + to_string(x) << " ";
 		}
 		else {
-			cout << "F" + to_string(y) << " ";
+			cout << "F" + to_string(x) << " ";
 		}
 		
-		for (int x = 1; x < columnas + 1; x++) {
+		for (int y = 1; y < columnas + 1; y++) {
 
 			NodoCasilla* nodoBuscado = tablero2.BuscarNodo(x, y);
 
@@ -399,24 +377,24 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 			//la primera matriz obtiene las bombas
 			if (casilla == "X") {
 
-				NodoCasilla*nuevoNodo = new NodoCasilla(posY, posX, casilla);
+				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
 				tablero.AgregarNodo(nuevoNodo, posX, posY);
 
 			}
 			else if (casilla != "0") {
 
-				NodoCasilla*nuevoNodo = new NodoCasilla(posY, posX, casilla);
+				NodoCasilla*nuevoNodo = new NodoCasilla(posX, posY, casilla);
 				tablero.AgregarNodo(nuevoNodo, posX, posY);
 
 			}
 
-			cout << posX << "___" << casilla << endl;
-			posX++;
+			
+			posY++;
 
 		}
 
-		posY++;
-		posX = 1;
+		posX++;
+		posY = 1;
 	}
 
 
@@ -449,15 +427,20 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 			cout << "indique la fila a buscar" << endl;
 			getline(cin, fila);
 			try { //Validar respuesta del menu
-				y = std::stoi(fila);
+				
 				PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 				cout << "indique la columna a buscar" << endl;
 				getline(cin, columna);
 				try {
+
+
 					system("CLS");//Limpiar consola
-					x = std::stoi(columna);
 
 					//se setean las variables a estas otras para facilitar sintaxis de los algoritmos.
+					x = std::stoi(fila); //y = columna
+					y = std::stoi(columna); //x = fila
+
+					
 
 
 
@@ -474,6 +457,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 						if (tablero2.BuscarNodo(x, y) == nullptr) { //se agrega bandera en caso de que no exista una en su lugar.
 							NodoCasilla*nodoBandera = new NodoCasilla(x, y, "B");
 							nodoBandera->SetEstado(true);
+							cout << x << ";" << y << endl;
 							tablero2.AgregarNodo(nodoBandera, x, y);
 						}
 						else {//en caso de marcar con bandera en una casilla que ya tenga bandera
@@ -537,7 +521,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 					system("CLS");//Limpiar consola
 					PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
 					cout << "ERROR, columna invalida." << endl;
-					cout << "*************************************************************************************" << endl;
+					cout << "**********************************************************************************" << endl;
 					continue;
 				}
 			}

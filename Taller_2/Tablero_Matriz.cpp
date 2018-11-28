@@ -40,14 +40,14 @@ Tablero_Matriz::~Tablero_Matriz()
 {
 }
 
-void Tablero_Matriz::AgregarNodo(NodoCasilla* Nodo, int posX, int posY)
+void Tablero_Matriz::AgregarNodo(NodoCasilla* Nodo, int fila, int columna)
 {
 	//verifica las posiciones si son realistas
-	NodoCasilla* Aux = &Filas[posY];
+	NodoCasilla* Aux = &Filas[fila];
 	int cont = 0;
-	while (Aux->GetLeft()->GetColumna() > posX)
+	while (Aux->GetLeft()->GetColumna() > columna)
 	{
-		if (Aux->GetLeft()->GetColumna() == posX) {  //comprueba si el lugar esta ocupado
+		if (Aux->GetLeft()->GetColumna() == columna) {  //comprueba si el lugar esta ocupado
 			cout << "Ya existe un nodo en esta posicion" << endl;
 			int cont = 1;
 		}
@@ -58,9 +58,9 @@ void Tablero_Matriz::AgregarNodo(NodoCasilla* Nodo, int posX, int posY)
 	if (cont == 0) {
 		Nodo->SetLeft(Aux->GetLeft());
 		Aux->SetLeft(Nodo);
-		NodoCasilla* Aux2 = &Columnas[posX];
+		NodoCasilla* Aux2 = &Columnas[columna];
 
-		while (Aux2->GetUp()->GetFila() > posY)
+		while (Aux2->GetUp()->GetFila() > fila)
 		{
 			Aux2 = Aux2->GetUp();
 		}
@@ -72,16 +72,16 @@ void Tablero_Matriz::AgregarNodo(NodoCasilla* Nodo, int posX, int posY)
 
 
 
-NodoCasilla* Tablero_Matriz::BuscarNodo(int x, int y)
+NodoCasilla* Tablero_Matriz::BuscarNodo(int fila, int columna)
 {
-	NodoCasilla* aux = &Filas[y];
+	NodoCasilla* aux = &Filas[fila];
 
 
 	//Ciclo que avanza hasta verificar que se llege denuevo a los nodos base.
 	while (aux->GetLeft()->GetColumna() != 0) {
 
 
-		if (aux->GetLeft()->GetColumna() == x) {
+		if (aux->GetLeft()->GetColumna() == columna) {
 
 			return aux->GetLeft();
 
