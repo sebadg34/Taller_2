@@ -490,6 +490,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 						else if (tablero.BuscarNodo(x, y)->getValor() == "X") { //JUGADOR PIERDE 
 
+							PlaySound(TEXT("Explosion.wav"), NULL, SND_ASYNC);
 							tablero2.AgregarNodo(tablero.BuscarNodo(x, y), x, y);
 							tablero.BuscarNodo(x, y)->SetEstado(true);//Se marca que el nodo fue revelado.
 						}
