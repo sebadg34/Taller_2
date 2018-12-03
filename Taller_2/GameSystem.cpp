@@ -444,11 +444,13 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 
 
-					if (x < 0 || y < 0) {
+					if ((x < 0 || y < 0) || (dif == 1 && (x > 9 || y > 9)) || (dif == 2 && (x > 16 || y > 16)) || (dif == 3 && (x > 32 || y > 16))) {
 						cout << "Columna/fila invalida, debe ser de valores positivos y dentro del rango del tablero" << endl;
-						break;
+						cout << "************************************************************************************" << endl;
+						PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
+						continue;
+
 					}
-					PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 
 
 					//algoritmo para realizar la accion solicitada
