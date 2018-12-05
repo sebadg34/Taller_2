@@ -26,6 +26,10 @@ public:
 	
 	void DesplegarTablero(Tablero_Matriz tablero, Tablero_Matriz tablero2);
 
+
+	
+	
+	void RecursionCeros(int x, int y, Tablero_Matriz tablero, Tablero_Matriz tablero2);
 private: 
 
 	string* Facil;

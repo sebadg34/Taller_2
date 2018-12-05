@@ -288,14 +288,18 @@ void GameSystem::DesplegarTablero(Tablero_Matriz tablero,Tablero_Matriz tablero2
 		for (int y = 1; y < columnas + 1; y++) {
 
 			NodoCasilla* nodoBuscado = tablero2.BuscarNodo(x, y);
-
+			
+			
 			if (nodoBuscado == nullptr) { 
 				cout << " H  "; 
+				
 			}
 			else { 
-				if (nodoBuscado->getEstado() == true) { // si el nodo ya fue revelado, se desplega su valor por consola.
+				//if (nodoBuscado->getEstado() == true) { // si el nodo ya fue revelado, se desplega su valor por consola.
+
 					cout << " "<< nodoBuscado->getValor() << "  ";
-				}
+					
+				//}
 				
 			}
 		}
@@ -388,7 +392,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 
 			}
 
-			
+
 			posY++;
 
 		}
@@ -427,7 +431,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 			cout << "indique la fila a buscar" << endl;
 			getline(cin, fila);
 			try { //Validar respuesta del menu
-				
+
 				PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 				cout << "indique la columna a buscar" << endl;
 				getline(cin, columna);
@@ -440,17 +444,16 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 					x = std::stoi(fila); //y = columna
 					y = std::stoi(columna); //x = fila
 
-					
 
 
 
-					if ((x < 0 || y < 0) || (dif == 1 && (x > 9 || y > 9)) || (dif == 2 && (x > 16 || y > 16)) || (dif == 3 && (x > 32 || y > 16))) {
+
+					if ((x < 0 || y < 0) || (dif == 1 && (y>9 || x > 9)) || (dif==2 && (y > 16 || x > 16) || (dif == 3 && (y > 32 || x > 16)))) {
 						cout << "Columna/fila invalida, debe ser de valores positivos y dentro del rango del tablero" << endl;
-						cout << "************************************************************************************" << endl;
 						PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
 						continue;
-
 					}
+					PlaySound(TEXT("Boton.wav"), NULL, SND_ASYNC);
 
 
 					//algoritmo para realizar la accion solicitada
@@ -464,33 +467,39 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 						}
 						else {//en caso de marcar con bandera en una casilla que ya tenga bandera
 							//se llama funcion eliminar nodo.
-
+							tablero2.EliminarNodo(x, y);
 						}
 
 					}
 
 					if (tipo == "?") {
 						if (tablero2.BuscarNodo(x, y) == nullptr) { //se agrega un ? en caso de que no exista una en su lugar.
-							
+
 							NodoCasilla*nodoDudoso = new NodoCasilla(x, y, "?");
 							nodoDudoso->SetEstado(true);
 							tablero2.AgregarNodo(nodoDudoso, x, y);
 						}
 						else {//en caso de marcar con un ? en una casilla que ya tenga un ?
 							  //se llama funcion eliminar nodo.
+							tablero2.EliminarNodo(x, y);
 						}
 					}
 
 					if (tipo == "A") {
 
-						if (tablero.BuscarNodo(x, y) == nullptr) { //un 0 encontrado.
-							if (tablero2.BuscarNodo(x, y) != nullptr) { //se checkea si el 0 no esta en el tablero2, en caso de enviar denuevo la misma coordenada.
+						if (tablero.BuscarNodo(x, y) == nullptr) {
+							//un 0 encontrado.
+							
+							if (tablero2.BuscarNodo(x, y) == nullptr) { //se checkea si el 0 no esta en el tablero2, en caso de enviar denuevo la misma coordenada.
 							//Comienza recursion de 0s
+								
+								PlaySound(TEXT("Recursion.wav"), NULL, SND_ASYNC);
+								RecursionCeros(x, y, tablero, tablero2);
 							}
 
 						}
 
-						else if (tablero.BuscarNodo(x, y)->getValor() == "X") { //JUGADOR PIERDE 
+						else if (tablero.BuscarNodo(x, y)->getValor() == "X") { //JUGADOR PIERDE
 
 							PlaySound(TEXT("Explosion.wav"), NULL, SND_ASYNC);
 							tablero2.AgregarNodo(tablero.BuscarNodo(x, y), x, y);
@@ -505,6 +514,7 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 								//se descubre un numero, y se agrega al 2ndo tablero
 
 								tablero2.AgregarNodo(tablero.BuscarNodo(x, y), x, y);
+								tablero2.BuscarNodo(x, y)->SetEstado(true);//Se marca que el nodo fue revelado.
 								tablero.BuscarNodo(x, y)->SetEstado(true);//Se marca que el nodo fue revelado.
 							}
 
@@ -550,6 +560,73 @@ void GameSystem::Partida(Tablero_Matriz tablero, Tablero_Matriz tablero2, string
 			PlaySound(TEXT("Error.wav"), NULL, SND_ASYNC);
 			cout << "ERROR, ingrese un movimiento valido" << endl;
 			cout << "***************************************" << endl;
+		}
+
+
+	}
+}
+
+
+
+
+void GameSystem::RecursionCeros(int fila, int columna, Tablero_Matriz tablero, Tablero_Matriz tablero2)
+{
+	if (fila <= 0 || columna <= 0) {
+	
+		return;
+	}
+	else {
+
+		if (fila <= 0 || columna <= 0) { //en caso de que se desborde hacia los nodos bases de las filas y columnas
+			return;
+		}
+
+		if (dif == 1) {
+			if (fila > 9 || columna > 9) { //en caso de que se salga de la matriz la recursion
+				return;
+			}
+		}
+		else if (dif == 2) {
+			if (fila > 16 || columna > 16) { //en caso de que se salga de la matriz la recursion
+				return;
+			}
+		}
+		else if (dif == 3) {
+			if (fila > 16 || columna > 30) { //en caso de que se salga de la matriz la recursion
+				return;
+			}
+		}
+
+
+		if (tablero.BuscarNodo(fila, columna) == nullptr) { //revisa si es un cero en el tablero 1
+
+			if (tablero2.BuscarNodo(fila, columna) == nullptr) {//se verifica si no existe el cero en el tablero 2
+				NodoCasilla* NodoCero = new NodoCasilla(fila, columna, "0");
+				NodoCero->SetEstado(true); //se setea su estado revelado a true, para evitar que la recursion la tome.
+				tablero2.AgregarNodo(NodoCero, fila, columna);
+
+				
+				
+
+				return RecursionCeros(fila + 1, columna, tablero, tablero2), RecursionCeros(fila - 1, columna, tablero, tablero2), RecursionCeros(fila, columna + 1, tablero, tablero2), RecursionCeros(fila, columna - 1, tablero, tablero2);
+
+
+
+			}
+			else {
+				if (tablero2.BuscarNodo(fila, columna)->getEstado() == true) { //detiene recursion si avanza a un 0 en tablero 2 y ya fue revelado (con el booleano).
+					return;
+				}
+
+			}
+		}
+		else if (tablero.BuscarNodo(fila, columna)->getValor() != "X") {
+			NodoCasilla* NodoNumero = new NodoCasilla(fila, columna, tablero.BuscarNodo(fila, columna)->getValor());
+			NodoNumero->SetEstado(true);
+			tablero2.AgregarNodo(NodoNumero, fila, columna);
+
+			
+			return;
 		}
 
 

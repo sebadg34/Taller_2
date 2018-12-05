@@ -92,3 +92,27 @@ NodoCasilla* Tablero_Matriz::BuscarNodo(int fila, int columna)
 	}
 	return nullptr;
 }
+
+void Tablero_Matriz::EliminarNodo(int fila, int columna)
+{
+	NodoCasilla* Aux = &Filas[fila];
+
+	while (Aux->GetLeft()->GetColumna() > columna) //Avanza hacia la posicion desde fila
+	{
+		Aux = Aux->GetLeft();
+
+	}
+
+	NodoCasilla* Eliminar = Aux->GetLeft(); //Se guarda el nodo a eliminar
+
+	Aux->SetLeft(Aux->GetLeft()->GetLeft());
+
+	Aux = &Columnas[columna];
+
+	while (Aux->GetUp()->GetFila() > fila) //Avanza hacia la posicion desde columnas
+	{
+		Aux = Aux->GetUp();
+	}
+	Aux->SetUp(Aux->GetUp()->GetUp());
+	delete(Eliminar);
+}
